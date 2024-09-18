@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name       String
+  username   String   @unique
+  password   String
+  email      String?
+  created_at DateTime @default(now())
+
+  Favorite Favorite?
+
+  @@map("users")
+}
+
+model Favorite {
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @db.ObjectId
+
+  coins Coins[]
+  @@map("favorite")
+}
+
+model Coins {
+  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id_coin Int
+  name    String
+  symbol  String @unique
+  rank    Int
+
+  history History[]
+
+  Favorite   Favorite? @relation(fields: [favoriteId], references: [id])
+  favoriteId String?   @db.ObjectId
+
+  @@map("coins")
+}
+
+model History {
+  id                   String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  price                Float
+  valume_24h           Float
+  volume_change_24h    Float
+  percent_change_1h    Float
+  percent_change_24h   Float
+  percent_change_7d    Float
+  percent_change_30d   Float
+  percent_change_60d   Float
+  percent_change_90d   Float
+  market_cap           Float
+  market_cap_dominance Float
+  date                 DateTime
+  circulating_supply   Float
+  total_supply         Float
+  max_supply           Float?
+
+  Coins   Coins @relation(fields: [coinsId], references: [id_coin])
+  coinsId Int
+
+  @@map("history")
+}
