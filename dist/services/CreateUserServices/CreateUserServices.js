@@ -9,7 +9,6 @@
 
  class UserServices {
   async execute({ username, password, email, name }) {
-    
     const create = await _prisma.prisma.user.create({
       data: {
         username,

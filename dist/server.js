@@ -14,15 +14,16 @@ app.use(_router.router);
 const port = process.env.PORT || 3000;
 
 app.listen(process.env.PORT || 3000, () =>
-  console.log(`Server is running on port ${port}`)
+  console.log(`Server is running on port ${port}`),
+    
 );
 
 async function addNewHistory() {
-  const response = await _axios2.default.get(`${process.env.URL_BACKEND}/new/history`, {
+  const { status } = await _axios2.default.get(`${process.env.URL_BACKEND}/new/history`, {
     params: { key: process.env.KEY },
   });
 
-  if (response.status == 200) {
+  if (status == 200) {
     return;
   } else {
     console.log("Erro ao atualizar historico");
@@ -32,7 +33,6 @@ async function addNewHistory() {
 // addNewHistory();
 
 setInterval(() => {
-  console.log("chamou");
-
   addNewHistory();
+  console.log("chamou");
 }, 60000);

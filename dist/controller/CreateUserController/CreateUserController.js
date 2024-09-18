@@ -4,6 +4,7 @@ var _CreateUserServices = require('../../services/CreateUserServices/CreateUserS
  class CreateUserController {
   async handle(req, res) {
     const { username, password, email, name } = req.body;
+console.log( req);
 
     try {
       const service = new (0, _CreateUserServices2.default)();

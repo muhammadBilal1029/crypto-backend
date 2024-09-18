@@ -17,7 +17,7 @@ var _HistoryRegisterServices = require('../../services/HistoryRegisterServices/H
     const { data: history } = await _axios2.default.get(
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
-        params: { start: "1", limit: "999" },
+        params: { start: "1", limit: "4998" },
         headers: {
           "X-CMC_PRO_API_KEY": process.env.CRIPTO_KEY,
         },
@@ -28,7 +28,7 @@ var _HistoryRegisterServices = require('../../services/HistoryRegisterServices/H
     const { data: history2 } = await _axios2.default.get(
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
-        params: { start: "999", limit: "2000" },
+        params: { start: "4999", limit: "5000" },
         headers: {
           "X-CMC_PRO_API_KEY": process.env.CRIPTO_KEY,
         },
@@ -43,8 +43,6 @@ var _HistoryRegisterServices = require('../../services/HistoryRegisterServices/H
 
       res.json({ register: true });
     } catch (e) {
-      console.log(e);
-      
       res.json({ error: e.message });
     }
   }
