@@ -4,18 +4,15 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["mongoDb"]
-    binaryTargets = ["native"]
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-      binaryTargets = ["native"]
-
 }
 
 model User {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   username   String   @unique
   password   String
@@ -28,7 +25,7 @@ model User {
 }
 
 model Favorite {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique @db.ObjectId
@@ -38,8 +35,8 @@ model Favorite {
 }
 
 model Coins {
-  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  id_coin Int
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id_coin Int @unique 
   name    String
   symbol  String @unique
   rank    Int
@@ -53,7 +50,7 @@ model Coins {
 }
 
 model History {
-  id                   String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
   price                Float
   valume_24h           Float
   volume_change_24h    Float
