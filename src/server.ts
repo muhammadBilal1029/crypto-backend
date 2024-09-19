@@ -12,7 +12,9 @@ app.use(express.json({ limit: "460mb" }));
 app.use(router);
 
 const port = process.env.PORT || 3000;
-
+app.get('/', (req, res) => {
+  res.send('Hello, this is the root route!');
+});
 app.listen(process.env.PORT || 3000, () =>
   console.log(`Server is running on port ${port}`),
     
