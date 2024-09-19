@@ -19,7 +19,6 @@ app.listen(process.env.PORT || 3000, () =>
   console.log(`Server is running on port ${port}`),
     
 );
-
 async function addNewHistory() {
   const { status } = await axios.get(`${process.env.URL_BACKEND}/new/history`, {
     params: { key: process.env.KEY },
