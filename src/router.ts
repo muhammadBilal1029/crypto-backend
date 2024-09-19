@@ -10,9 +10,28 @@ import { TakeFavoriteController } from "./controller/TakeFavoriteController/Take
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import { AddToFavoriteController } from "./controller/AddToFavoriteController/AddToFavoriteController";
 import { RemoveFavoriteController } from "./controller/RemoveFavoriteController/RemoveFavoriteController";
-
+// var _prisma = require('../../utils/prisma');
 const router = Router();
+// router.post('/alertform', async (req, res) => {
+//   const { name, email, message } = req.body;
 
+//   if (!name || !email || !message) {
+//     return res.status(400).json({ error: 'All fields are required' });
+//   }
+
+//   try {
+//     const newAlertData = await _prisma.prisma.AlertData.create({
+//       data: {
+//         name,
+//         email,
+//         message,
+//       },
+//     });
+//     res.status(201).json(newAlertData);
+//   } catch (error) {
+//     res.status(500).json({ error: 'An error occurred' });
+//   }
+// });
 router.post(
   "/register/coin",
   // ensureAuthenticated,

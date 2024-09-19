@@ -23,6 +23,12 @@ model User {
 
   @@map("users")
 }
+model AlertData {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  email   String
+  message String
+}
 
 model Favorite {
   id String @id @default(auto()) @map("_id") @db.ObjectId

@@ -10,7 +10,9 @@ app.use(_express2.default.urlencoded({ limit: "460mb", extended: true }));
 app.use(_express2.default.json({ limit: "460mb" }));
 app.use(_router.router);
 const port = process.env.PORT || 3000;
-
+app.get('/', (req, res) => {
+  res.send('Welcome To CryptoLab!');
+});
 app.listen(process.env.PORT || 3000, () =>
   console.log(`Server is running on port ${port}`),
     

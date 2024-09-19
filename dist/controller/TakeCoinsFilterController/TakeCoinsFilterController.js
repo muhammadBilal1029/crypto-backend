@@ -10,6 +10,8 @@ var _TakeCoinsFilterServices = require('../../services/TakeCoinsFilterServices/T
       const result = await service.execute(Number(start));
       res.json(result);
     } catch (e) {
+      console.log(e);
+      
       return res.status(400).json({ error: true });
     }
   }
