@@ -12,25 +12,7 @@ var _AddToFavoriteController = require('./controller/AddToFavoriteController/Add
 var _RemoveFavoriteController = require('./controller/RemoveFavoriteController/RemoveFavoriteController');
 var prisma=require('../dist/utils/prisma');
 const router = _express.Router.call(void 0, );
-router.post('/alertform', async (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
-  try {
-    const newAlertData = await prisma.prisma.AlertData.create({
-      data: {
-        name,
-        email,
-        message,
-      },
-    });
-    res.status(201).json(newAlertData);
-  } catch (error) {
-   
-    res.status(500).json({ error: 'An error occurred' });
-  }
-});
+
 router.post(
   "/register/coin",
   // ensureAuthenticated,

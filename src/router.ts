@@ -10,28 +10,46 @@ import { TakeFavoriteController } from "./controller/TakeFavoriteController/Take
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import { AddToFavoriteController } from "./controller/AddToFavoriteController/AddToFavoriteController";
 import { RemoveFavoriteController } from "./controller/RemoveFavoriteController/RemoveFavoriteController";
-// var _prisma = require('../../utils/prisma');
+ var {prisma} = require('../src/utils/prisma');
 const router = Router();
-// router.post('/alertform', async (req, res) => {
-//   const { name, email, message } = req.body;
-
-//   if (!name || !email || !message) {
-//     return res.status(400).json({ error: 'All fields are required' });
-//   }
-
-//   try {
-//     const newAlertData = await _prisma.prisma.AlertData.create({
-//       data: {
-//         name,
-//         email,
-//         message,
-//       },
-//     });
-//     res.status(201).json(newAlertData);
-//   } catch (error) {
-//     res.status(500).json({ error: 'An error occurred' });
-//   }
-// });
+router.post('/alertform', async (req, res) => {
+  const { price, valume_24h,coinsId } = req.body;
+  if (!price || !coinsId) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  console.log( {
+    price,
+    valume_24h,
+    coinsId
+  });
+  
+  try {
+    const newAlertData = await prisma.alertData.upsert({
+      where: {
+        coinsId: coinsId, // The field you are using to check if the record exists (assuming coinsId is unique)
+      },
+      update: {
+        price, // If the record exists, these fields will be updated
+        valume_24h,
+      },
+      create: {
+        price, // If the record does not exist, a new one will be created
+        valume_24h,
+        Coins: {
+          connect: {
+            id_coin: coinsId, // Assuming you already have a coin with this id
+          },
+        },
+      },
+    });
+    
+    res.status(201).json(newAlertData);
+  } catch (error) {
+     console.log(error);
+     
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
 router.post(
   "/register/coin",
   // ensureAuthenticated,

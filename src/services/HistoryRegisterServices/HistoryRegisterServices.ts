@@ -30,6 +30,7 @@ export interface ExecuteProps {
 
 export class HistoryRegisterServices {
   async execute({ data }: ExecuteProps) {
+    await prisma.history.deleteMany()
     // Enviando os dados para o banco
     const createMany = await prisma.history.createMany({
       data: data.map((element) => {

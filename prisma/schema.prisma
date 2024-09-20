@@ -25,10 +25,13 @@ model User {
 }
 model AlertData {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  email   String
-  message String
-}
+  price    String
+  date_sent    String?
+  valume_24h   String
+  Coins   Coins @relation(fields: [coinsId], references: [id_coin])
+  coinsId Int @unique
+
+  }
 
 model Favorite {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -48,6 +51,7 @@ model Coins {
   rank    Int
 
   history History[]
+  alert_data AlertData?
 
   Favorite   Favorite? @relation(fields: [favoriteId], references: [id])
   favoriteId String?   @db.ObjectId
